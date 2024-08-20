@@ -1,12 +1,13 @@
 import os
 import math
 import torch
+
 import cv2 as cv
 import numpy as np
 import pandas as pd
 from pprint import pprint
 from scipy.spatial.distance import cdist, euclidean
-from visualize_training_images import pandafy_bbboxes
+from .visualize_training_images import pandafy_bbboxes_from_json
 
 
 def compute_center_points(bbx_df: pd.DataFrame) -> pd.DataFrame:
@@ -164,20 +165,31 @@ def compute_features(bbx_df: pd.DataFrame):
     bbx_df = compute_center_points(bbx_df=bbx_df)
     bbx_df = compute_closest_particle_info(bbx_df=bbx_df)
     bbx_df = compute_intensity_info(bbx_df=bbx_df, full_img=full_img)
-    bbx_df = compute_point_density_function(bbx_df, full_img=full_img)
+    bbx_df = compute_point_density_function(bbx_df=bbx_df, full_img=full_img)
 
-    # Uncomment to print features before
+    # Uncomment to print features before returning
     # pprint(bbx_df)
 
     return bbx_df
 
 
-if __name__ == '__main__':
-    bbox_data_dir = os.path.join("..", "data", "correlated", "bboxes_two_classes")
-    bbox_data_files = [os.path.join(bbox_data_dir, filenames) for filenames in os.listdir(bbox_data_dir)]
-
-    for file in bbox_data_files:
-        boundingboxes_df = pandafy_bbboxes(path_to_bbox_file=file)
-        compute_feats = compute_features(bbx_df=boundingboxes_df)
-        break
-
+# if __name__ == '__main__':
+#
+#     save = True
+#
+#     bbox_data_dir = os.path.join("..", "data", "correlated", "bboxes_two_classes")
+#     bbox_data_files = [os.path.join(bbox_data_dir, filenames) for filenames in os.listdir(bbox_data_dir)]
+#
+#     for file in bbox_data_files:
+#
+#         boundingboxes_df = pandafy_bbboxes_from_json(path_to_bbox_file=file)
+#         compute_feats = compute_features(bbx_df=boundingboxes_df)
+#
+#         if save:
+#             pth_cmps = file.split(os.path.sep)
+#
+#             try: os.mkdir(os.path.join(os.path.sep.join(pth_cmps[:3]), "particle_data"))
+#             except FileExistsError: pass
+#
+#             save_path = os.path.join(os.path.sep.join(pth_cmps[:3]), "particle_data", pth_cmps[-1].split(".")[0] + ".csv")
+#             compute_feats.to_csv(save_path, index=True)

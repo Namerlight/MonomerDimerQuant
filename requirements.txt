@@ -1,3 +1,12 @@
 --extra-index-url https://download.pytorch.org/whl/cu118
 torch
 torchvision
+albumentations==1.4.7
+flaml==2.2.0
+lightgbm==4.5.0
+numpy==1.26.4
+opencv-python==4.9.0.82
+pandas==2.2.1
+sahi==0.11.18
+scipy==1.12.0
+ultralytics==8.2.0

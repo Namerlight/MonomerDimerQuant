@@ -10,7 +10,8 @@ pd.options.display.max_rows = None
 pd.options.display.width = None
 pd.options.display.max_colwidth = None
 
-def pandafy_bbboxes(path_to_bbox_file: str) -> pd.DataFrame:
+
+def pandafy_bbboxes_from_json(path_to_bbox_file: str) -> pd.DataFrame:
     """
     Gets bounding boxes from a json file. The json file is in YOLO format. This is for a single image.
 
@@ -29,6 +30,7 @@ def pandafy_bbboxes(path_to_bbox_file: str) -> pd.DataFrame:
         bbx_df["y2"] = (bbx_df["y"].astype(int) + (bbx_df["height"]).astype(int)/2)
         bbx_df = bbx_df.reindex(columns=['image_path_from_utils', "x1", "y1", "x2", "y2", "label"])
         return bbx_df
+
 
 def show_image_with_bboxes(bbx_df: pd.DataFrame):
     """
@@ -61,5 +63,5 @@ if __name__ == '__main__':
     bbox_data_files = [os.path.join(bbox_data_dir, filenames) for filenames in os.listdir(bbox_data_dir)]
 
     for file in bbox_data_files:
-        boundingboxes_df = pandafy_bbboxes(path_to_bbox_file=file)
+        boundingboxes_df = pandafy_bbboxes_from_json(path_to_bbox_file=file)
         show_image_with_bboxes(bbx_df=boundingboxes_df)
