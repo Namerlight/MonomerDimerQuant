@@ -5,6 +5,11 @@ The dataset is organized in the following way. Once you have downloaded the data
 Please contact the authors for access to the dataset.
 
 ```
+data
+│
+├─── sample_images\
+│    ├─── 001-1-2s.jpeg
+│    └─── 3.png
 │
 ├─── correlated\
 │    │
