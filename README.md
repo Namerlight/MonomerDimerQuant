@@ -47,4 +47,4 @@ python utils/generate_visualize_heightmap.py -i data/sample_images/3.png
 
 If you use any of the code, trained models or data, please cite the paper.
 
-TBD
+> Mohsin, A. S. M. and Choudhury, S. H., "Quantifying Monomer-Dimer Distribution of Nanoparticles from Uncorrelated Optical Images Using Deep Learning", _in Review_
